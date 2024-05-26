@@ -212,7 +212,7 @@ export default function Menu({
           <Button
             onClick={handleExport}
             style={{
-              backgroundColor: `${theme.startColor}30`, // 1A in hex represents 10% opacity
+              backgroundColor: `${theme.startColor}40`, // 1A in hex represents 10% opacity
               color: theme.startColor,
             }}
             className="px-3 py-2 rounded hover:bg-red-400/10"
@@ -223,7 +223,7 @@ export default function Menu({
           <Select>
             <SelectTrigger
               noIcon={true}
-              style={{ backgroundColor: `${theme.startColor}30` }}
+              style={{ backgroundColor: `${theme.startColor}40` }}
               className="border-0 w-[32px] p-0"
             >
               <ChevronUp size={18} className=" mx-auto" color={theme.startColor} />
