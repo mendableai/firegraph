@@ -1,10 +1,10 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import Graph from "@/components/graph";
 import { allThemes, Theme } from "@/lib/theme";
 
-export default function EmbedPage() {
+function EmbedPageContent() {
   const searchParams = useSearchParams();
   const padding = searchParams?.get("padding") || "64";
   const theme =
@@ -50,5 +50,13 @@ export default function EmbedPage() {
       darkMode={parsedDarkMode}
       chartRef={chartRef}
     />
+  );
+}
+
+export default function EmbedPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EmbedPageContent />
+    </Suspense>
   );
 }
