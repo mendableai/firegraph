@@ -75,7 +75,7 @@ export default function Menu({
     });
   };
   return (
-    <div className="fixed bottom-14 left-1/2 transform -translate-x-1/2 flex items-center space-x-8 p-4  ">
+    <div className="w-full mx-auto fixed bottom-14 left-1/2 transform -translate-x-1/2 flex items-center justify-center space-x-8 p-4">
       <div className="flex flex-col items-start rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[18px]">
         <p className="text-zinc-700 text-sm">Visualize</p>
         <div className="mt-1 flex flex-row items-center rounded-lg gap-4">
@@ -183,14 +183,14 @@ export default function Menu({
             onCheckedChange={(checked) => setBackground(checked)}
           />
         </div>
-        {/* <div className="flex h-full flex-col items-start justify-start pb-2">
+        <div className="flex h-full flex-col items-start justify-start pb-2">
           <span className="text-zinc-700 text-sm">Dark Mode</span>
           <Switch
             className="mt-2 scale-90 -ml-[2px]"
             checked={darkMode}
             onCheckedChange={(checked) => setDarkMode(checked)}
           />
-        </div> */}
+        </div>
         <div className="flex flex-col items-start justify-start">
           <span className="text-zinc-700 text-sm">Padding</span>
           <Select

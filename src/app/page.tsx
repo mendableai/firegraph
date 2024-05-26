@@ -15,7 +15,9 @@ import html2canvas from "html2canvas";
 
 export default function Home() {
   const [padding, setPadding] = useState(64);
-  const [theme, setTheme] = useState<Theme>(() => allThemes["firecrawl"] as Theme);
+  const [theme, setTheme] = useState<Theme>(
+    () => allThemes["firecrawl"] as Theme
+  );
 
   const [background, setBackground] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
@@ -67,15 +69,19 @@ export default function Home() {
 
   return (
     <div
-      className="bg-white h-screen"
+      className="h-screen"
       style={{
-        backgroundImage: "url(/bgd.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        background: `linear-gradient(to bottom right, rgba(255, 255, 255, 0.75) 58%, ${theme.startColor}, ${theme.endColor} )`,
       }}
     >
       <main className="relative flex h-[95vh] flex-col items-center justify-center bg-transparent bg-opacity-80">
-        <Graph padding={padding} theme={theme} background={background} darkMode={darkMode} chartRef={chartRef} />
+        <Graph
+          padding={padding}
+          theme={theme}
+          background={background}
+          darkMode={darkMode}
+          chartRef={chartRef}
+        />
 
         <Menu
           padding={padding}

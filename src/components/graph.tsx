@@ -135,6 +135,7 @@ export default function Graph({
                 index="date"
                 categories={["Stars"]}
                 colors={[theme.color]}
+                showGridLines={!darkMode}
                 yAxisWidth={35}
                 showLegend={false}
                 yAxisLabel="Stars"
