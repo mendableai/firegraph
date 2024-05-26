@@ -23,6 +23,9 @@ export default function Home() {
 
   const chartRef = useRef<HTMLDivElement>(null);
 
+  const [githubLink, setGithubLink] = useState<string>("");
+  const [csvData, setCsvData] = useState<string>("");
+
   const handleExport = async (copyAsImage: boolean = false) => {
     if (chartRef.current) {
       const canvas = await html2canvas(chartRef.current, {

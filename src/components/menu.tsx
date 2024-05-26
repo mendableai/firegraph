@@ -13,15 +13,27 @@ import {
   ArrowUp,
   ArrowUp01,
   ChevronUp,
+  ClipboardPasteIcon,
   Code,
   Copy,
   Download,
+  Github,
   Image,
   MoveUpIcon,
   Plus,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "./ui/dialog";
 import { SelectIcon } from "@radix-ui/react-select";
 import { toast } from "sonner";
+import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
 
 export default function Menu({
   padding,
@@ -64,14 +76,70 @@ export default function Menu({
   };
   return (
     <div className="fixed bottom-14 left-1/2 transform -translate-x-1/2 flex items-center space-x-8 p-4  ">
-      {/* <div className="flex items-center rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[26px] gap-4">
-        <Button className="bg-black text-white px-3 py-2 rounded hover:bg-zinc-700/10">
-          <Plus size={16} className="mr-1" />
-          Add data
-        </Button>
-        
-      </div> */}
-      <div className="flex items-end space-x-8 p-4 rounded-lg bg-white border border-zinc-500/25 shadow-xl">
+      <div className="flex flex-col items-start rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[18px]">
+        <p className="text-zinc-700 text-sm">Visualize</p>
+        <div className="mt-1 flex flex-row items-center rounded-lg gap-4">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-black text-white px-3 py-2 rounded hover:bg-zinc-700/75">
+                <Github size={16} className="mr-1" />
+                GitHub stars
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Enter GitHub URL</DialogTitle>
+                <DialogDescription>
+                  Please enter the GitHub repository URL to fetch stars data.
+                </DialogDescription>
+              </DialogHeader>
+              <Input
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="https://github.com/user/repo"
+              />
+              <div className="flex justify-end space-x-2 mt-4">
+                <Button variant="outline">Cancel</Button>
+                <Button>Submit</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant={"outline"}
+                className="px-3 py-2 rounded hover:bg-zinc-700/10"
+              >
+                <ClipboardPasteIcon size={16} className="mr-1" />
+                Other data
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Paste CSV Data</DialogTitle>
+                <DialogDescription>
+                  Please paste your CSV data or upload a CSV file.
+                </DialogDescription>
+              </DialogHeader>
+              <Textarea
+                className="w-full p-2 border border-gray-300 rounded"
+                rows={5}
+                placeholder="Paste your CSV data here..."
+              ></Textarea>
+              <Input
+                type="file"
+                accept=".csv"
+                className="w-full p-2 border border-gray-300 rounded mt-2"
+              />
+              <div className="flex justify-end space-x-2 mt-4">
+                <Button variant="outline">Cancel</Button>
+                <Button>Submit</Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
+      <div className="flex items-end space-x-8 p-4 rounded-lg bg-white border border-zinc-500/25 shadow-xl py-[20px]">
         {/* <div className="flex flex-col items-start justify-start">
       <Button className="bg-black text-white px-3 py-2 rounded hover:bg-zinc-700/10">
           <Plus size={16} className="mr-1" />
@@ -148,7 +216,7 @@ export default function Menu({
             <Download size={16} className="mr-1" />
             Export
           </Button>
-          <Select >
+          <Select>
             <SelectTrigger
               noIcon={true}
               className="border-0 w-[32px] p-0 bg-orange-400/25 text-orange-400"
