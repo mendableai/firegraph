@@ -5,7 +5,7 @@ import { AreaChart, Color } from "@tremor/react";
 import { useState, useRef } from "react";
 import html2canvas from "html2canvas";
 
-export default function Graph({ padding, theme, chartRef }: { padding: number, theme: Theme, chartRef: React.RefObject<HTMLDivElement> }) {
+export default function Graph({ padding, theme, background, chartRef }: { padding: number, theme: Theme, background: boolean, chartRef: React.RefObject<HTMLDivElement> }) {
   const mockchartdata = [
     {
       date: "Apr 15",
@@ -79,10 +79,11 @@ export default function Graph({ padding, theme, chartRef }: { padding: number, t
   
 
   return (
+    <div className={`${!background ? 'border border-gray-300/25' : ''} rounded-lg`}>
     <div
       className="cc flex items-center justify-center h-fit resize-x overflow-auto"
       style={{
-        background: theme.gradient,
+        background: background ? theme.gradient : "transparent",
       }}
       ref={chartRef}
     >
@@ -125,5 +126,6 @@ export default function Graph({ padding, theme, chartRef }: { padding: number, t
         priority
       /> */}
     </div>
+  </div>
   );
 }

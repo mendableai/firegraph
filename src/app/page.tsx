@@ -17,6 +17,8 @@ export default function Home() {
   const [padding, setPadding] = useState(64);
   const [theme, setTheme] = useState<Theme>(() => allThemes["sunset"] as Theme);
 
+  const [background, setBackground] = useState(true);
+
   const chartRef = useRef<HTMLDivElement>(null);
 
   const handleExport = async () => {
@@ -29,12 +31,13 @@ export default function Home() {
         logging: true,
         onclone: (document: Document) => {
           Array.from(
-            document
-              .querySelector(".cc")
-              ?.querySelectorAll("*") || []
+            document.querySelector(".cc")?.querySelectorAll("*") || []
           ).forEach((e) => {
             let existingStyle = e.getAttribute("style") || "";
-            e.setAttribute("style", existingStyle + "; font-family: Inter, sans-serif !important");
+            e.setAttribute(
+              "style",
+              existingStyle + "; font-family: Inter, sans-serif !important"
+            );
           });
         },
       });
@@ -55,7 +58,7 @@ export default function Home() {
       }}
     >
       <main className="relative flex h-[95vh] flex-col items-center justify-center bg-transparent bg-opacity-80">
-      <Graph padding={padding} theme={theme} chartRef={chartRef} />
+        <Graph padding={padding} theme={theme} background={background} chartRef={chartRef} />
 
         <Menu
           padding={padding}
@@ -63,6 +66,8 @@ export default function Home() {
           theme={theme}
           setTheme={setTheme}
           handleExport={handleExport}
+          background={background}
+          setBackground={setBackground}
         />
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white  text-center font-light">
           Made by{" "}
