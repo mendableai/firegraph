@@ -7,7 +7,7 @@ import { allThemes, Theme } from '@/lib/theme';
 export default function EmbedPage() {
   const searchParams = useSearchParams();
   const padding = searchParams?.get('padding') || '64';
-  const theme = searchParams?.get('theme') || JSON.stringify(allThemes['sunset']);
+  const theme = searchParams?.get('theme') || JSON.stringify(allThemes['firecrawl']);
   const background = searchParams?.get('background') || 'false';
 
   const [parsedPadding, setParsedPadding] = useState(0);
@@ -41,6 +41,7 @@ export default function EmbedPage() {
       padding={parsedPadding}
       theme={parsedTheme}
       background={parsedBackground}
+      darkMode={false}
       chartRef={chartRef}
     />
   );

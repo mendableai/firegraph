@@ -2,18 +2,20 @@
 
 import { Theme } from "@/lib/theme";
 import { AreaChart, Color } from "@tremor/react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import html2canvas from "html2canvas";
 
 export default function Graph({
   padding,
   theme,
   background,
+  darkMode,
   chartRef,
 }: {
   padding: number;
   theme: Theme;
   background: boolean;
+  darkMode: boolean;
   chartRef: React.RefObject<HTMLDivElement>;
 }) {
   const mockchartdata = [
@@ -87,8 +89,6 @@ export default function Graph({
   const maxStars = Math.max(...mockchartdata.map((data) => data.Stars));
   const [maxValue, setMaxValue] = useState(maxStars);
 
-  
-
   return (
     <div
       className={`${!background ? "border border-gray-300/25" : ""} rounded-lg`}
@@ -101,11 +101,32 @@ export default function Graph({
         ref={chartRef}
       >
         <div style={{ padding: `${padding}px` }} className="transition-all">
-          <div className="bg-white bg-opacity-90 rounded-lg p-4">
-            <div className="flex space-x-2">
-              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
-              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
-              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+          <div
+            className={`rounded-lg p-4 ${
+              darkMode ? "bg-black bg-opacity-90" : "bg-white bg-opacity-90"
+            }`}
+          >
+            <div className="w-full flex flex-col items-center mb-4">
+              <div className="w-full flex space-x-2 mb-2">
+                <div
+                  className={`w-3 h-3 ${
+                    darkMode ? "bg-gray-700" : "bg-gray-300"
+                  } rounded-full dark-mode-circle`}
+                ></div>
+                <div
+                  className={`w-3 h-3 ${
+                    darkMode ? "bg-gray-700" : "bg-gray-300"
+                  } rounded-full dark-mode-circle`}
+                ></div>
+                <div
+                  className={`w-3 h-3 ${
+                    darkMode ? "bg-gray-700" : "bg-gray-300"
+                  } rounded-full dark-mode-circle`}
+                ></div>
+              </div>
+              <div className="w-full text-center">
+                <div contentEditable className="focus:outline-none text-sm text-zinc-500 focus:ring-2 mx-2 rounded-md focus:ring-zinc-300">Your awesome graph</div>
+              </div>
             </div>
             <div className="pt-6 text-xs">
               <AreaChart
