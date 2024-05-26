@@ -11,13 +11,27 @@
   "dependencies": {
     "@headlessui/react": "^2.0.4",
     "@headlessui/tailwindcss": "^0.2.0",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "@remixicon/react": "^4.2.0",
     "@tremor/react": "^3.17.2",
     "axios": "^1.7.2",
     "cubic-spline": "^3.0.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "html2canvas": "^1.4.1",
+    "lucide": "^0.379.0",
+    "lucide-react": "^0.379.0",
     "next": "14.2.3",
+    "next-themes": "^0.3.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sonner": "^1.4.41",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
