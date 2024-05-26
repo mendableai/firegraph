@@ -75,7 +75,7 @@ export default function Menu({
     });
   };
   return (
-    <div className="w-full mx-auto fixed bottom-14 left-1/2 transform -translate-x-1/2 flex items-center justify-center space-x-8 p-4">
+    <div className="w-full mx-auto fixed bottom-14 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row items-center justify-center space-x-8 p-4">
       <div className="flex flex-col items-start rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[18px]">
         <p className="text-zinc-700 text-sm">Visualize</p>
         <div className="mt-1 flex flex-row items-center rounded-lg gap-4">
@@ -211,7 +211,11 @@ export default function Menu({
         <div className="flex items-center gap-2">
           <Button
             onClick={handleExport}
-            className="bg-orange-400/25 text-orange-400 px-3 py-2 rounded hover:bg-red-400/10"
+            style={{
+              backgroundColor: `${theme.startColor}30`, // 1A in hex represents 10% opacity
+              color: theme.startColor,
+            }}
+            className="px-3 py-2 rounded hover:bg-red-400/10"
           >
             <Download size={16} className="mr-1" />
             Export
@@ -219,9 +223,10 @@ export default function Menu({
           <Select>
             <SelectTrigger
               noIcon={true}
-              className="border-0 w-[32px] p-0 bg-orange-400/25 text-orange-400"
+              style={{ backgroundColor: `${theme.startColor}30` }}
+              className="border-0 w-[32px] p-0"
             >
-              <ChevronUp size={18} className=" mx-auto" />
+              <ChevronUp size={18} className=" mx-auto" color={theme.startColor} />
             </SelectTrigger>
             <SelectContent className="w-fit" side="top">
               <SelectItem onClick={generateEmbedCode} value="embed">
