@@ -55,6 +55,8 @@ export default function Home() {
       }}
     >
       <main className="relative flex h-[95vh] flex-col items-center justify-center bg-transparent bg-opacity-80">
+      <Graph padding={padding} theme={theme} chartRef={chartRef} />
+
         <Menu
           padding={padding}
           setPadding={setPadding}
@@ -62,7 +64,6 @@ export default function Home() {
           setTheme={setTheme}
           handleExport={handleExport}
         />
-        <Graph padding={padding} theme={theme} chartRef={chartRef} />
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white  text-center font-light">
           Made by{" "}
           <a

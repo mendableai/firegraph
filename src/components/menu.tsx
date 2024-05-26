@@ -23,7 +23,7 @@ export default function Menu({
   handleExport: () => void;
 }) {
   return (
-    <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex items-end space-x-4 p-4 rounded-lg bg-white border border-gray-500/25 shadow-xl ">
+    <div className="absolute bottom-14 left-1/2 transform -translate-x-1/2 flex items-end space-x-4 p-4 rounded-lg bg-white border border-gray-500/25 shadow-xl ">
       <div className="flex flex-col items-start justify-start">
         <span className="text-zinc-700 text-sm">Theme</span>
         <Select
