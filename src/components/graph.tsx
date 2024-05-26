@@ -5,7 +5,17 @@ import { AreaChart, Color } from "@tremor/react";
 import { useState, useRef } from "react";
 import html2canvas from "html2canvas";
 
-export default function Graph({ padding, theme, background, chartRef }: { padding: number, theme: Theme, background: boolean, chartRef: React.RefObject<HTMLDivElement> }) {
+export default function Graph({
+  padding,
+  theme,
+  background,
+  chartRef,
+}: {
+  padding: number;
+  theme: Theme;
+  background: boolean;
+  chartRef: React.RefObject<HTMLDivElement>;
+}) {
   const mockchartdata = [
     {
       date: "Apr 15",
@@ -76,56 +86,59 @@ export default function Graph({ padding, theme, background, chartRef }: { paddin
   const [chartData, setChartData] = useState(mockchartdata);
   const maxStars = Math.max(...mockchartdata.map((data) => data.Stars));
   const [maxValue, setMaxValue] = useState(maxStars);
+
   
 
   return (
-    <div className={`${!background ? 'border border-gray-300/25' : ''} rounded-lg`}>
     <div
-      className="cc flex items-center justify-center h-fit resize-x overflow-auto"
-      style={{
-        background: background ? theme.gradient : "transparent",
-      }}
-      ref={chartRef}
+      className={`${!background ? "border border-gray-300/25" : ""} rounded-lg`}
     >
-      <div style={{ padding: `${padding}px` }} className="transition-all">
-        <div className="bg-white bg-opacity-90 rounded-lg p-4" >
-          <div className="flex space-x-2">
-            <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
-            <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
-            <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
-          </div>
-          <div className="pt-6 text-xs">
-            <AreaChart
-              className="h-72 w-96"
-              data={chartData}
-              index="date"
-              categories={["Stars"]}
-              colors={[theme.color]}
-              yAxisWidth={35}
-              showLegend={false}
-              yAxisLabel="Stars"
-              xAxisLabel="Date"
-              valueFormatter={(value) => {
-                if (value > 99) {
-                  return (value / 1000).toFixed(1) + "k";
-                }
-                return value.toString();
-              }}
-              maxValue={maxValue}
-              connectNulls={true}
-              curveType="natural"
-            />
+      <div
+        className="cc flex items-center justify-center h-fit resize-x overflow-auto"
+        style={{
+          background: background ? theme.gradient : "transparent",
+        }}
+        ref={chartRef}
+      >
+        <div style={{ padding: `${padding}px` }} className="transition-all">
+          <div className="bg-white bg-opacity-90 rounded-lg p-4">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+            </div>
+            <div className="pt-6 text-xs">
+              <AreaChart
+                className="h-72 w-96"
+                data={chartData}
+                index="date"
+                categories={["Stars"]}
+                colors={[theme.color]}
+                yAxisWidth={35}
+                showLegend={false}
+                yAxisLabel="Stars"
+                xAxisLabel="Date"
+                valueFormatter={(value) => {
+                  if (value > 99) {
+                    return (value / 1000).toFixed(1) + "k";
+                  }
+                  return value.toString();
+                }}
+                maxValue={maxValue}
+                connectNulls={true}
+                curveType="natural"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      {/* <Image
+        {/* <Image
         src="/GraphExample.png"
         alt="Graph Example"
         width={500}
         height={500}
         priority
       /> */}
+      </div>
     </div>
-  </div>
   );
 }
