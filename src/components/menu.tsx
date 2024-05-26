@@ -34,6 +34,7 @@ import { SelectIcon } from "@radix-ui/react-select";
 import { toast } from "sonner";
 import { Textarea } from "./ui/textarea";
 import { Input } from "./ui/input";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 export default function Menu({
   padding,
@@ -220,29 +221,25 @@ export default function Menu({
             <Download size={16} className="mr-1" />
             Export
           </Button>
-          <Select>
-            <SelectTrigger
-              noIcon={true}
-              style={{ backgroundColor: `${theme.startColor}40` }}
-              className="border-0 w-[32px] p-0"
-            >
-              <ChevronUp size={18} className=" mx-auto" color={theme.startColor} />
-            </SelectTrigger>
-            <SelectContent className="w-fit" side="top">
-              <SelectItem onClick={()=>generateEmbedCode()} value="embed">
+          <DropdownMenu>
+            <DropdownMenuTrigger style={{ backgroundColor: `${theme.startColor}40` }} className="h-[40px] border-0 w-[32px] p-0 rounded">
+              <ChevronUp size={18} className="mx-auto" color={theme.startColor} />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-fit" side="top">
+              <DropdownMenuItem onClick={() => generateEmbedCode()}>
                 <div className="flex items-center justify-start gap-2">
-                  <Code size={16} className="-ml-4 mr-1" />
+                  <Code size={16} className="mr-1" />
                   Embed
                 </div>
-              </SelectItem>
-              {/* <SelectItem onClick={handleExportCopyAsImage} value="copy">
+              </DropdownMenuItem>
+              {/* <DropdownMenuItem onClick={handleExportCopyAsImage}>
                 <div className="flex items-center justify-start gap-2">
                   <Image size={16} className="-ml-4 mr-1" />
                   Copy PNG
                 </div>
-              </SelectItem> */}
-            </SelectContent>
-          </Select>
+              </DropdownMenuItem> */}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
