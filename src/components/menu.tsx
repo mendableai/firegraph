@@ -65,7 +65,7 @@ export default function Menu({
           window.location.origin
         }/embed?padding=${padding}&theme=${encodeURIComponent(
       JSON.stringify(theme)
-    )}&background=${background}"
+    )}&background=${background}&darkMode=${darkMode}"
         style="border:none;width:100%;height:400px;"
         allowfullscreen
       ></iframe>
