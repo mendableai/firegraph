@@ -14,7 +14,7 @@ import html2canvas from "html2canvas";
  */
 
 export default function Home() {
-  const [padding, setPadding] = useState(64);
+  const [padding, setPadding] = useState(32);
   const [theme, setTheme] = useState<Theme>(
     () => allThemes["firecrawl"] as Theme
   );
