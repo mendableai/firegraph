@@ -146,9 +146,17 @@ async function getRepoStarRecords(repo: string, token: string, maxRequestAmount:
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { repo: rawRepo, token } = req.query as { repo: string, token: string };
-  
-  const repo = rawRepo.startsWith('https://github.com/') ? rawRepo.replace('https://github.com/', '') : rawRepo;
-  
+
+  let repo = rawRepo;
+  if (repo.startsWith('https://github.com/')) {
+    repo = repo.replace('https://github.com/', '');
+  } else if (repo.startsWith('http://github.com/')) {
+    repo = repo.replace('http://github.com/', '');
+  } else if (repo.startsWith('www.github.com/')) {
+    repo = repo.replace('www.github.com/', '');
+  } else if (repo.startsWith('github.com/')) {
+    repo = repo.replace('github.com/', '');
+  }
   console.log(repo, token);
   const maxRequestAmount = 15;
 
