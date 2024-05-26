@@ -1,9 +1,10 @@
 // components/Graph.tsx
 
+import { Theme } from "@/lib/theme";
 import { AreaChart, Color } from "@tremor/react";
 import { useState } from "react";
 
-export default function Graph({ padding }: { padding: number }) {
+export default function Graph({ padding, theme }: { padding: number, theme: Theme }) {
   const mockchartdata = [
     {
       date: "Apr 15",
@@ -76,9 +77,9 @@ export default function Graph({ padding }: { padding: number }) {
   const [maxValue, setMaxValue] = useState(maxStars);
   return (
     <div
-      className="flex items-center justify-center h-fit w-fit "
+      className="flex items-center justify-center h-fit resize-x overflow-auto"
       style={{
-        background: "linear-gradient(135deg, #fdba74, #f97316)",
+        background: theme.gradient,
       }}
     >
       <div style={{ padding: `${padding}px` }} className="transition-all">
@@ -94,7 +95,7 @@ export default function Graph({ padding }: { padding: number }) {
               data={chartData}
               index="date"
               categories={["Stars"]}
-              colors={["orange-400"]}
+              colors={[theme.color]}
               yAxisWidth={35}
               showLegend={false}
               yAxisLabel="Stars"
