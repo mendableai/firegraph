@@ -81,7 +81,7 @@ export default function Graph({ padding }: { padding: number }) {
         background: "linear-gradient(135deg, #fdba74, #f97316)",
       }}
     >
-      <div style={{ padding: `${padding}px` }}>
+      <div style={{ padding: `${padding}px` }} className="transition-all">
         <div className="bg-white bg-opacity-90 rounded-lg p-4">
           <div className="flex space-x-2">
             <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
