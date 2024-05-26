@@ -34,7 +34,14 @@ import { SelectIcon } from "@radix-ui/react-select";
 import { toast } from "sonner";
 import { Textarea } from "./ui/textarea";
 import { Input } from "./ui/input";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 export default function Menu({
   padding,
@@ -62,11 +69,7 @@ export default function Menu({
   const generateEmbedCode = () => {
     const embedCode = `
       <iframe
-        src="${
-          window.location.origin
-        }/embed?padding=${padding}&theme=${encodeURIComponent(
-      JSON.stringify(theme)
-    )}&background=${background}&darkMode=${darkMode}"
+        src="${window.location.origin}/embed?padding=${padding}&theme=${theme.name}&background=${background}&darkMode=${darkMode}"
         style="border:none;width:100%;height:400px;"
         allowfullscreen
       ></iframe>
@@ -222,8 +225,15 @@ export default function Menu({
             Export
           </Button>
           <DropdownMenu>
-            <DropdownMenuTrigger style={{ backgroundColor: `${theme.startColor}40` }} className="h-[40px] border-0 w-[32px] p-0 rounded">
-              <ChevronUp size={18} className="mx-auto" color={theme.startColor} />
+            <DropdownMenuTrigger
+              style={{ backgroundColor: `${theme.startColor}40` }}
+              className="h-[40px] border-0 w-[32px] p-0 rounded"
+            >
+              <ChevronUp
+                size={18}
+                className="mx-auto"
+                color={theme.startColor}
+              />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-fit" side="top">
               <DropdownMenuItem onClick={() => generateEmbedCode()}>
