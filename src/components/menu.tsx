@@ -229,7 +229,7 @@ export default function Menu({
               <ChevronUp size={18} className=" mx-auto" color={theme.startColor} />
             </SelectTrigger>
             <SelectContent className="w-fit" side="top">
-              <SelectItem onClick={generateEmbedCode} value="embed">
+              <SelectItem onClick={()=>generateEmbedCode()} value="embed">
                 <div className="flex items-center justify-start gap-2">
                   <Code size={16} className="-ml-4 mr-1" />
                   Embed
