@@ -63,7 +63,7 @@ export default function Menu({
     });
   };
   return (
-    <div className="absolute bottom-14 left-1/2 transform -translate-x-1/2 flex items-center space-x-8 p-4  ">
+    <div className="fixed bottom-14 left-1/2 transform -translate-x-1/2 flex items-center space-x-8 p-4  ">
       {/* <div className="flex items-center rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[26px] gap-4">
         <Button className="bg-black text-white px-3 py-2 rounded hover:bg-zinc-700/10">
           <Plus size={16} className="mr-1" />
@@ -162,12 +162,12 @@ export default function Menu({
                   Embed
                 </div>
               </SelectItem>
-              <SelectItem onClick={handleExportCopyAsImage} value="copy">
+              {/* <SelectItem onClick={handleExportCopyAsImage} value="copy">
                 <div className="flex items-center justify-start gap-2">
                   <Image size={16} className="-ml-4 mr-1" />
                   Copy PNG
                 </div>
-              </SelectItem>
+              </SelectItem> */}
             </SelectContent>
           </Select>
         </div>

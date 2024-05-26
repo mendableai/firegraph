@@ -86,7 +86,7 @@ export default function Home() {
           setDarkMode={setDarkMode}
           handleExportCopyAsImage={() => handleExport(true)}
         />
-        <div className="absolute bottom-0 left-0 right-0 p-4 text-white  text-center font-light">
+        <div className="fixed bottom-0 left-0 right-0 p-4 text-white  text-center font-light">
           Made by{" "}
           <a
             href="https://firecrawl.dev"
