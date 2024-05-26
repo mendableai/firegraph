@@ -14,11 +14,13 @@ export default function Menu({
   setPadding,
   theme,
   setTheme,
+  handleExport,
 }: {
   padding: number;
   setPadding: (padding: number) => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
+  handleExport: () => void;
 }) {
   return (
     <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex items-end space-x-4 p-4 rounded-lg bg-white border border-gray-500/25 shadow-xl ">
@@ -63,7 +65,7 @@ export default function Menu({
       <Button className="bg-orange-400/25 text-orange-400 px-4 py-2 rounded hover:bg-orange-400/10">
         Add data
       </Button>
-      <Button className="bg-red-400/25  text-red-400 px-4 py-2 rounded hover:bg-red-400/10">
+      <Button onClick={handleExport} className="bg-red-400/25  text-red-400 px-4 py-2 rounded hover:bg-red-400/10">
         Export
       </Button>
     </div>

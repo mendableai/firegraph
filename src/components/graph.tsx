@@ -2,9 +2,10 @@
 
 import { Theme } from "@/lib/theme";
 import { AreaChart, Color } from "@tremor/react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import html2canvas from "html2canvas";
 
-export default function Graph({ padding, theme }: { padding: number, theme: Theme }) {
+export default function Graph({ padding, theme, chartRef }: { padding: number, theme: Theme, chartRef: React.RefObject<HTMLDivElement> }) {
   const mockchartdata = [
     {
       date: "Apr 15",
@@ -75,15 +76,18 @@ export default function Graph({ padding, theme }: { padding: number, theme: Them
   const [chartData, setChartData] = useState(mockchartdata);
   const maxStars = Math.max(...mockchartdata.map((data) => data.Stars));
   const [maxValue, setMaxValue] = useState(maxStars);
+  
+
   return (
     <div
-      className="flex items-center justify-center h-fit resize-x overflow-auto"
+      className="cc flex items-center justify-center h-fit resize-x overflow-auto"
       style={{
         background: theme.gradient,
       }}
+      ref={chartRef}
     >
       <div style={{ padding: `${padding}px` }} className="transition-all">
-        <div className="bg-white bg-opacity-90 rounded-lg p-4">
+        <div className="bg-white bg-opacity-90 rounded-lg p-4" >
           <div className="flex space-x-2">
             <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
             <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
