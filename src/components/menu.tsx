@@ -31,8 +31,7 @@ export default function Menu({
       <button
         className="bg-blue-600 text-white px-4 py-2 rounded"
         onClick={async () => {
-          const token =
-            "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";
+          const token = process.env.GITHUB_TOKEN;
           const repoUrl = "https://github.com/mendableai/data-connectors";
           if (token && repoUrl) {
             try {
