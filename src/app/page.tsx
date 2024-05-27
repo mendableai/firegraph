@@ -2,6 +2,7 @@
 import MainComponent from "@/components/main";
 import { useGithubStars } from "./hooks/useGithubStars";
 import GithubButton from "@/components/github-button";
+import { useEffect, useState } from "react";
 
 /**
  * The issue in the original code is that the `allThemes["firecrawl"]` object does not match the expected `Theme` type.
@@ -9,6 +10,11 @@ import GithubButton from "@/components/github-button";
  */
 
 export default async function Home() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   const githubStars = await useGithubStars();
   return (
     <div className="relative">

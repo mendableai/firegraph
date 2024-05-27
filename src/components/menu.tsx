@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -97,6 +97,11 @@ export default function Menu({
   openCsv: boolean;
   setOpenCsv: (openCsv: boolean) => void;
 }) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   const generateEmbedCode = () => {
     const embedCode = `
       <iframe

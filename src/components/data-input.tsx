@@ -10,6 +10,7 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { useEffect, useState } from "react";
 
 type DataInputProps = {
   setChartData: any;
@@ -40,6 +41,11 @@ export default function DataInput({
   pastedCsvData,
   setPastedCsvData,
 }: DataInputProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   return (
     <div
       className={`${
