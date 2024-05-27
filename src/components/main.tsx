@@ -62,7 +62,7 @@ export default function MainComponent() {
   const [chartData, setChartData] = useState(initialData);
   const [xName, setXName] = useState("Date");
   const [yName, setYName] = useState("Stars");
-  const [padding, setPadding] = useState(32);
+  const [padding, setPadding] = useState(window.innerWidth < 450 ? 16 : 32);
   const [width, setWidth] = useState("400");
   const [theme, setTheme] = useState<Theme>(
     () => allThemes["firecrawl"] as Theme
@@ -199,7 +199,11 @@ export default function MainComponent() {
           openCsv={openCsv}
           setOpenCsv={setOpenCsv}
         />
-        <div className="fixed bottom-0 left-0 right-0 p-4 text-white  text-center font-light">
+        <div
+          className={`fixed bottom-0 left-0 right-0 ${
+            window.innerHeight < 700 ? "p-2" : "p-4"
+          } text-white text-center font-light`}
+        >
           Made by{" "}
           <a
             href="https://firecrawl.dev"
