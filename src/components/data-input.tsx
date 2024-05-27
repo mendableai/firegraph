@@ -1,4 +1,4 @@
-import { Github, ClipboardPasteIcon } from "lucide-react";
+import { Github, ClipboardPasteIcon, FileIcon } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -35,8 +35,8 @@ export default function DataInput({
     setPastedCsvData,
 }: DataInputProps) {
   return (
-    <div className="mt-8 md:mt-8 mb-0 md:mb-8 xl:mb-12 xl:mt-12 flex flex-col items-start rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[18px]">
-        {/* <p className="text-zinc-700 mx-auto text-sm">Visualize</p> */}
+    <div className="mt-8 md:mt-8 mb-0 md:mb-8 xl:mb-12 xl:mt-12 flex flex-col items-start rounded-lg  px-4 py-[18px]">
+        <p className="text-zinc-700 mx-auto mb-1 text-sm">Choose data you want to visualize</p>
         <div className="mt-1 flex flex-row items-center rounded-lg gap-4">
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -105,8 +105,8 @@ export default function DataInput({
                 variant={"outline"}
                 className="px-3 py-2 rounded hover:bg-zinc-700/10"
               >
-                <ClipboardPasteIcon size={16} className="mr-1" />
-                Other data
+                <FileIcon size={16} className="mr-1" />
+                CSV
               </Button>
             </DialogTrigger>
             <DialogContent>
