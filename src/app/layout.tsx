@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Create beautiful graphs with Firegraph",
-  description: "Create beautiful graphs with Firegraph",
+  title: "Create beautiful graphs - Firegraph",
+  description: "Create beautiful graphs - Firegraph",
 };
 
 export default function RootLayout({
@@ -16,11 +16,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
