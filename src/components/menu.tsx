@@ -110,7 +110,7 @@ export default function Menu({
     });
   };
   return (
-    <div className="w-full mx-auto fixed bottom-14 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row items-center justify-center space-x-8 p-4">
+    <div className="w-full mx-auto fixed bottom-14 left-1/2 transform -translate-x-1/2 flex flex-col sm:flex-row items-center justify-center p-4">
       
       <div className="flex flex-col items-start md:flex-row md:items-end md:space-x-8 p-4 rounded-lg bg-white border border-zinc-500/25 shadow-xl py-[20px]">
         {/* <div className="flex flex-col items-start justify-start">
@@ -167,7 +167,7 @@ export default function Menu({
           />
         </div>
         </div>
-        <div className="flex flex-row items-end mb-4 md:mb-0 md:flex-row gap-4 items-start justify-start">
+        <div className="flex flex-row items-end mb-4 md:mb-0 md:flex-row gap-4  justify-start">
         <div className="flex flex-col items-start justify-start">
           <span className="text-zinc-700 text-sm">Padding</span>
           <Select
