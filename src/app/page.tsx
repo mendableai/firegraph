@@ -77,7 +77,7 @@ export default function Home() {
   const chartRef = useRef<HTMLDivElement>(null);
   const [githubLink, setGithubLink] = useState<string>("");
   const [csvData, setCsvData] = useState<string>("");
-  const [graphTitle, setGraphTitle] = useState<string>("Your fire graph 🔥");
+  const [graphTitle, setGraphTitle] = useState<string>("Firegraph🔥");
   const [maxValue, setMaxValue] = useState(0);
   const [finalChartData, setFinalChartData] = useState(chartData);
 

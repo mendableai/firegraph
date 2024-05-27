@@ -184,7 +184,7 @@ export default function DataInput({
                     setChartData(parsedData);
                     setXName(key);
                     setYName(value);
-                    setGraphTitle(`Your fire graph 🔥`);
+                    setGraphTitle(`Firegraph🔥`);
                     // close the dialog after file is uploaded
                     setOpenCsv(false);
                   }}

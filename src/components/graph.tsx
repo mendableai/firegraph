@@ -60,13 +60,13 @@ export default function Graph({
       className={`${!background ? "border border-gray-300/25" : ""} rounded-lg scale-75 md:scale-100` }
     >
       <div
-        className="cc flex items-center justify-center h-fit resize-x overflow-auto"
+        className="cc w-full flex items-center justify-center h-fit resize-x overflow-auto"
         style={{
           background: background ? theme.gradient : "transparent",
         }}
         ref={chartRef}
       >
-        <div style={{ padding: `${padding}px` }} className="transition-all">
+        <div style={{ padding: `${padding}px` }} className="transition-all ">
           <div
             className={`rounded-lg p-4 ${
               darkMode ? "bg-black bg-opacity-90" : "bg-white bg-opacity-90"
@@ -99,7 +99,11 @@ export default function Graph({
                 </div>
               </div>
             </div>
-            <div className="pt-6 text-xs ">
+            <div className="relative flex flex-row items-center w-full pt-6 text-xs ">
+              <div className="-rotate-90 mb-12  mr-2 text-zinc-500">
+                {yName}
+              </div>
+              <div className="flex flex-col w-full">
               <AreaChart
                 style={{ width: width + "px"}}
                 className={`h-72 transition-all`}
@@ -111,8 +115,6 @@ export default function Graph({
                 yAxisWidth={35}
                 showAnimation={true}
                 showLegend={false}
-                yAxisLabel={yName}
-                xAxisLabel={xName}
                 valueFormatter={(value) => {
                   if (value > 999) {
                     return (value / 1000).toFixed(1) + "k";
@@ -123,9 +125,14 @@ export default function Graph({
                 connectNulls={true}
                 curveType="monotone"
               />
+              <p className="mt-2 w-full flex items-center justify-center mx-auto text-md text-zinc-500">
+              {xName}
+              </p>
+              </div>
             </div>
-          </div>
-        </div>
+            
+            </div>
+            </div>
       </div>
     </div>
   );
