@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
  */
 
 export default async function Home() {
+  "use client";
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
