@@ -205,35 +205,22 @@ export default function MainComponent() {
           openCsv={openCsv}
           setOpenCsv={setOpenCsv}
         />
-        <div
-          className={`fixed bottom-0 left-0 right-0 ${
-            window.innerHeight < 700 ? "p-2" : "p-4"
-          } text-white text-center font-light flex justify-center items-center gap-4`}
-        >
-          <a
-            href="https://firecrawl.dev"
-            target="_blank"
-            className="text-black md:text-white hover:text-orange-400"
-            style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)" }}
+        {typeof window !== "undefined" && (
+          <div
+            className={`fixed bottom-0 left-0 right-0 ${
+              window.innerHeight < 700 ? "p-2" : "p-4"
+            } text-white text-center font-light flex justify-center items-center gap-4`}
           >
-            Made by Firecrawl 🔥
-          </a>
-          <a
-            href="https://github.com/mendableai/firegraph"
-            target="_blank"
-            className="flex md:hidden text-white md:text-white bg-black rounded-md px-2 py-1 text-sm hover:text-gray-200 items-center"
-          >
-            <Github className="h-4 w-4 mr-1" />
-            Star us on GitHub
-          </a>
-          {/* <a
-            href="https://github.com/mendableai/firegraph"
-            target="_blank"
-            className="hidden md:flex text-black md:text-white bg-white/25 rounded-full w-6 h-6 text-sm hover:text-gray-200 items-center justify-center"
-          >
-            <Github className="h-4 w-4" />
-          </a> */}
-        </div>
+            <a
+              href="https://firecrawl.dev"
+              target="_blank"
+              className="text-black md:text-white hover:text-orange-400"
+              style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)" }}
+            >
+              Made by Firecrawl 🔥
+            </a>
+          </div>
+        )}
       </main>
     </div>
   );

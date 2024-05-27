@@ -56,87 +56,96 @@ export default function Graph({
   }, [chartData, yName]);
 
   return (
-    <div
-      className={`${
-        !background ? "border border-gray-300/25" : ""
-      } rounded-lg scale-75 md:scale-100`}
-    >
-      <div
-        className="cc w-full flex items-center justify-center h-fit resize-x overflow-auto"
-        style={{
-          background: background ? theme.gradient : "transparent",
-          transform:
-            window.innerHeight < 700 ? "translateY(-50px)" : "translateY(0)",
-        }}
-        ref={chartRef}
-      >
-        <div style={{ padding: `${padding}px` }} className="transition-all ">
+    <div>
+      {typeof window !== "undefined" && (
+        <div
+          className={`${
+            !background ? "border border-gray-300/25" : ""
+          } rounded-lg scale-75 md:scale-100`}
+        >
           <div
-            className={`rounded-lg p-4 ${
-              darkMode ? "bg-black bg-opacity-90" : "bg-white bg-opacity-90"
-            }`}
+            className="cc w-full flex items-center justify-center h-fit resize-x overflow-auto"
+            style={{
+              background: background ? theme.gradient : "transparent",
+              transform:
+                window.innerHeight < 700
+                  ? "translateY(-50px)"
+                  : "translateY(0)",
+            }}
+            ref={chartRef}
           >
-            <div className="w-full flex flex-col items-center mb-4">
-              <div className="w-full flex space-x-2 mb-2">
-                <div
-                  className={`w-3 h-3 ${
-                    darkMode ? "bg-gray-700" : "bg-gray-300"
-                  } rounded-full dark-mode-circle`}
-                ></div>
-                <div
-                  className={`w-3 h-3 ${
-                    darkMode ? "bg-gray-700" : "bg-gray-300"
-                  } rounded-full dark-mode-circle`}
-                ></div>
-                <div
-                  className={`w-3 h-3 ${
-                    darkMode ? "bg-gray-700" : "bg-gray-300"
-                  } rounded-full dark-mode-circle`}
-                ></div>
-              </div>
-              <div className="w-full text-center">
-                <div
-                  contentEditable
-                  className="focus:outline-none text-sm text-zinc-500 focus:ring-2 mx-2 rounded-md focus:ring-zinc-300"
-                >
-                  {graphTitle}
+            <div
+              style={{ padding: `${padding}px` }}
+              className="transition-all "
+            >
+              <div
+                className={`rounded-lg p-4 ${
+                  darkMode ? "bg-black bg-opacity-90" : "bg-white bg-opacity-90"
+                }`}
+              >
+                <div className="w-full flex flex-col items-center mb-4">
+                  <div className="w-full flex space-x-2 mb-2">
+                    <div
+                      className={`w-3 h-3 ${
+                        darkMode ? "bg-gray-700" : "bg-gray-300"
+                      } rounded-full dark-mode-circle`}
+                    ></div>
+                    <div
+                      className={`w-3 h-3 ${
+                        darkMode ? "bg-gray-700" : "bg-gray-300"
+                      } rounded-full dark-mode-circle`}
+                    ></div>
+                    <div
+                      className={`w-3 h-3 ${
+                        darkMode ? "bg-gray-700" : "bg-gray-300"
+                      } rounded-full dark-mode-circle`}
+                    ></div>
+                  </div>
+                  <div className="w-full text-center">
+                    <div
+                      contentEditable
+                      className="focus:outline-none text-sm text-zinc-500 focus:ring-2 mx-2 rounded-md focus:ring-zinc-300"
+                    >
+                      {graphTitle}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="relative flex flex-row items-center w-full pt-6 text-xs ">
-              <div className="-rotate-90 mb-12  mr-2 text-zinc-500">
-                {yName}
-              </div>
-              <div className="flex flex-col w-full">
-                <AreaChart
-                  style={{ width: width + "px" }}
-                  className={`h-72 transition-all`}
-                  data={finalChartData}
-                  index={xName}
-                  categories={[yName]}
-                  colors={[theme.color]}
-                  showGridLines={false}
-                  yAxisWidth={35}
-                  showAnimation={true}
-                  showLegend={false}
-                  valueFormatter={(value) => {
-                    if (value > 999) {
-                      return (value / 1000).toFixed(1) + "k";
-                    }
-                    return value.toString();
-                  }}
-                  maxValue={maxValue}
-                  connectNulls={true}
-                  curveType="monotone"
-                />
-                <p className="mt-2 w-full flex items-center justify-center mx-auto text-md text-zinc-500">
-                  {xName}
-                </p>
+                <div className="relative flex flex-row items-center w-full pt-6 text-xs ">
+                  <div className="-rotate-90 mb-12  mr-2 text-zinc-500">
+                    {yName}
+                  </div>
+                  <div className="flex flex-col w-full">
+                    <AreaChart
+                      style={{ width: width + "px" }}
+                      className={`h-72 transition-all`}
+                      data={finalChartData}
+                      index={xName}
+                      categories={[yName]}
+                      colors={[theme.color]}
+                      showGridLines={false}
+                      yAxisWidth={35}
+                      showAnimation={true}
+                      showLegend={false}
+                      valueFormatter={(value) => {
+                        if (value > 999) {
+                          return (value / 1000).toFixed(1) + "k";
+                        }
+                        return value.toString();
+                      }}
+                      maxValue={maxValue}
+                      connectNulls={true}
+                      curveType="monotone"
+                    />
+                    <p className="mt-2 w-full flex items-center justify-center mx-auto text-md text-zinc-500">
+                      {xName}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
