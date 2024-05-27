@@ -7,87 +7,45 @@ import html2canvas from "html2canvas";
 
 export default function Graph({
   padding,
+  chartData,
+  xName,
+  yName,
   theme,
   background,
   darkMode,
   chartRef,
+  graphTitle,
+  setGraphTitle,
 }: {
   padding: number;
+  chartData: any;
+  xName: string;
+  yName: string;
   theme: Theme;
   background: boolean;
   darkMode: boolean;
   chartRef: React.RefObject<HTMLDivElement>;
+  graphTitle: string;
+  setGraphTitle: (graphTitle: string) => void;
 }) {
-  const mockchartdata = [
-    {
-      date: "Apr 15",
-      Stars: 0,
-    },
-    {
-      date: "Apr 18",
-      Stars: 480,
-    },
-    {
-      date: "Apr 19",
-      Stars: 720,
-    },
-    {
-      date: "Apr 20",
-      Stars: 990,
-    },
-    {
-      date: "Apr 22",
-      Stars: 1260,
-    },
-    {
-      date: "Apr 23",
-      Stars: 1530,
-    },
-    {
-      date: "Apr 27",
-      Stars: 1800,
-    },
-    {
-      date: "Apr 28",
-      Stars: 2040,
-    },
-    {
-      date: "May 01",
-      Stars: 2310,
-    },
-    {
-      date: "May 06",
-      Stars: 2580,
-    },
-    {
-      date: "May 16",
-      Stars: 2850,
-    },
-    {
-      date: "May 18",
-      Stars: 3120,
-    },
-    {
-      date: "May 19",
-      Stars: 3360,
-    },
-    {
-      date: "May 20",
-      Stars: 3630,
-    },
-    {
-      date: "May 21",
-      Stars: 3900,
-    },
-    {
-      date: "May 25",
-      Stars: 4594,
-    },
-  ];
+  const [maxValue, setMaxValue] = useState(0);
+  const [finalChartData, setFinalChartData] = useState(chartData);
+  useEffect(() => {
+    if (
+      chartData.length > 0 &&
+      "Stars" in chartData[0] &&
+      "date" in chartData[0]
+    ) {
+      const maxStars = Math.max(...chartData.map((data: any) => data.Stars));
+      setMaxValue(maxStars);
 
-  const [chartData, setChartData] = useState(mockchartdata);
-  const maxStars = Math.max(...mockchartdata.map((data) => data.Stars));
-  const [maxValue, setMaxValue] = useState(maxStars);
+      setFinalChartData(chartData);
+    } else {
+      const maxYValue = Math.max(...chartData.map((data: any) => data[yName]));
+      setMaxValue(maxYValue);
+      setFinalChartData(chartData);
+    }
+  }, [chartData, yName]);
 
   return (
     <div
@@ -125,23 +83,28 @@ export default function Graph({
                 ></div>
               </div>
               <div className="w-full text-center">
-                <div contentEditable className="focus:outline-none text-sm text-zinc-500 focus:ring-2 mx-2 rounded-md focus:ring-zinc-300">Your awesome graph</div>
+                <div
+                  contentEditable
+                  className="focus:outline-none text-sm text-zinc-500 focus:ring-2 mx-2 rounded-md focus:ring-zinc-300"
+                >
+                  {graphTitle}
+                </div>
               </div>
             </div>
             <div className="pt-6 text-xs">
               <AreaChart
                 className="h-72 w-96"
-                data={chartData}
-                index="date"
-                categories={["Stars"]}
+                data={finalChartData}
+                index={xName}
+                categories={[yName]}
                 colors={[theme.color]}
                 showGridLines={false}
                 yAxisWidth={35}
                 showLegend={false}
-                yAxisLabel="Stars"
-                xAxisLabel="Date"
+                yAxisLabel={yName}
+                xAxisLabel={xName}
                 valueFormatter={(value) => {
-                  if (value > 99) {
+                  if (value > 999) {
                     return (value / 1000).toFixed(1) + "k";
                   }
                   return value.toString();
@@ -153,13 +116,6 @@ export default function Graph({
             </div>
           </div>
         </div>
-        {/* <Image
-        src="/GraphExample.png"
-        alt="Graph Example"
-        width={500}
-        height={500}
-        priority
-      /> */}
       </div>
     </div>
   );

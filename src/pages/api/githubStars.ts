@@ -9,7 +9,7 @@ interface StarRecord {
 }
 
 interface StarRecordResponse {
-  date: string;
+  Date: string;
   Stars: number;
 }
 
@@ -43,6 +43,9 @@ async function getRepoStargazersCount(repo: string, token?: string) {
 
   return data.stargazers_count;
 }
+
+
+const Spline = require('cubic-spline');
 
 async function getRepoStarRecords(repo: string, token: string, maxRequestAmount: number): Promise<StarRecordResponse[]> {
   const patchRes = await getRepoStargazers(repo, token);
@@ -113,24 +116,62 @@ async function getRepoStarRecords(repo: string, token: string, maxRequestAmount:
   const starAmount = await getRepoStargazersCount(repo, token);
   starRecordsMap.set(utils.getDateString(Date.now()), starAmount);
 
-  const starRecords: StarRecordResponse[] = [];
+  // Interpolation logic
+  const sortedDates = Array.from(starRecordsMap.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  const dates = sortedDates.map(date => new Date(date).getTime());
+  const stars = sortedDates.map(date => starRecordsMap.get(date)!);
 
-  starRecordsMap.forEach((v, k) => {
-    starRecords.push({
-      date: utils.getFormattedDate(k),
-      Stars: v,
+  const spline = new Spline(dates, stars);
+
+  const interpolatedRecords: StarRecordResponse[] = [];
+  const startDate = new Date(sortedDates[0]);
+  const endDate = new Date(sortedDates[sortedDates.length - 1]);
+  const daysBetween = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+
+  const maxStars = Math.max(...stars);
+
+  for (let i = 0; i <= daysBetween; i++) {
+    const currentDate = new Date(startDate);
+    currentDate.setDate(startDate.getDate() + i);
+    let interpolatedStars = spline.at(currentDate.getTime());
+    interpolatedStars = Math.max(0, Math.min(interpolatedStars, maxStars)); // Ensure value is between 0 and maxStars
+
+    // Ensure interpolated value is not lower than the last known value by more than 10
+    if (i > 1) {
+      const lastKnownValue = interpolatedRecords[i - 2].Stars;
+      if (interpolatedStars < lastKnownValue - 10) {
+        interpolatedStars = lastKnownValue;
+      }
+    }
+
+    interpolatedRecords.push({
+      Date: utils.getFormattedDate(currentDate.toISOString()),
+      Stars: Math.round(interpolatedStars),
     });
-  });
+  }
 
-  return starRecords;
+  return interpolatedRecords;
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { repo, token } = req.query as { repo: string, token: string };
-  const maxRequestAmount = 15;
+  const { repo: rawRepo, token } = req.query as { repo: string, token: string };
+
+  let repo = rawRepo;
+  if (repo.startsWith('https://github.com/')) {
+    repo = repo.replace('https://github.com/', '');
+  } else if (repo.startsWith('http://github.com/')) {
+    repo = repo.replace('http://github.com/', '');
+  } else if (repo.startsWith('www.github.com/')) {
+    repo = repo.replace('www.github.com/', '');
+  } else if (repo.startsWith('github.com/')) {
+    repo = repo.replace('github.com/', '');
+  }
+  console.log(repo, token);
+  const maxRequestAmount = 20;
 
   try {
     const starRecords = await getRepoStarRecords(repo, token, maxRequestAmount);
+    console.log(starRecords);
     res.status(200).json(starRecords);
   } catch (error: any) {
     res.status(500).json({ error: error.message });

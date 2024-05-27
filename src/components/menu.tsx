@@ -42,10 +42,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useState } from "react";
 
 export default function Menu({
   padding,
   setPadding,
+  setChartData,
+  setXName,
+  setYName,
   theme,
   setTheme,
   background,
@@ -54,9 +58,14 @@ export default function Menu({
   setDarkMode,
   handleExportCopyAsImage,
   handleExport,
+  graphTitle,
+  setGraphTitle,
 }: {
   padding: number;
   setPadding: (padding: number) => void;
+  setChartData: (data: any) => void;
+  setXName: (xName: string) => void;
+  setYName: (yName: string) => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
   background: boolean;
@@ -65,7 +74,13 @@ export default function Menu({
   setDarkMode: (darkMode: boolean) => void;
   handleExportCopyAsImage: () => void;
   handleExport: () => void;
+  graphTitle: string;
+  setGraphTitle: (graphTitle: string) => void;
 }) {
+  const [pastedCsvData, setPastedCsvData] = useState("");
+  const [repoUrl, setRepoUrl] = useState("");
+  const [open, setOpen] = useState(false);
+  const [openCsv, setOpenCsv] = useState(false);
   const generateEmbedCode = () => {
     const embedCode = `
       <iframe
@@ -83,7 +98,7 @@ export default function Menu({
       <div className="flex flex-col items-start rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[18px]">
         <p className="text-zinc-700 text-sm">Visualize</p>
         <div className="mt-1 flex flex-row items-center rounded-lg gap-4">
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button className="bg-black text-white px-3 py-2 rounded hover:bg-zinc-700/75">
                 <Github size={16} className="mr-1" />
@@ -101,14 +116,50 @@ export default function Menu({
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded"
                 placeholder="https://github.com/user/repo"
+                value={repoUrl}
+                onChange={(e) => setRepoUrl(e.target.value)}
               />
               <div className="flex justify-end space-x-2 mt-4">
                 <Button variant="outline">Cancel</Button>
-                <Button>Submit</Button>
+                <Button
+                  onClick={async () => {
+                    const token = process.env.GITHUB_TOKEN;
+
+                    if (token && repoUrl) {
+                      try {
+                        const response = await fetch(
+                          `/api/githubStars?repo=${encodeURIComponent(
+                            repoUrl
+                          )}&token=${encodeURIComponent(token)}`
+                        );
+                        if (!response.ok) {
+                          throw new Error(`Error: ${response.statusText}`);
+                        }
+                        const data = await response.json();
+                        console.log("GitHub Stars Data:", data);
+                        setXName("Date");
+                        setYName("Stars");
+                        setChartData(data);
+                        setGraphTitle(`${repoUrl} Stars`);
+                        setOpen(false);
+                      } catch (error) {
+                        console.error(
+                          "Failed to fetch GitHub stars data:",
+                          error
+                        );
+                        alert(
+                          "Failed to fetch GitHub stars data. Please check the console for more details."
+                        );
+                      }
+                    }
+                  }}
+                >
+                  Submit
+                </Button>
               </div>
             </DialogContent>
           </Dialog>
-          <Dialog>
+          <Dialog open={openCsv} onOpenChange={setOpenCsv}>
             <DialogTrigger asChild>
               <Button
                 variant={"outline"}
@@ -122,22 +173,83 @@ export default function Menu({
               <DialogHeader>
                 <DialogTitle>Paste CSV Data</DialogTitle>
                 <DialogDescription>
-                  Please paste your CSV data or upload a CSV file.
+                  Please paste your CSV data or upload a CSV file. <br />
+                  <strong>Make sure you have only 2 columns (X, Y)</strong>
                 </DialogDescription>
               </DialogHeader>
               <Textarea
                 className="w-full p-2 border border-gray-300 rounded"
                 rows={5}
-                placeholder="Paste your CSV data here..."
+                placeholder={`Gear, Speed
+1,0
+2,480
+3,750..
+`}
+                value={pastedCsvData}
+                onChange={(e) => setPastedCsvData(e.target.value)}
               ></Textarea>
               <Input
                 type="file"
                 accept=".csv"
                 className="w-full p-2 border border-gray-300 rounded mt-2"
+                onChange={(e) => {
+                  const file = e.target.files![0];
+                  const reader = new FileReader();
+                  reader.onload = (e: any) => {
+                    setPastedCsvData(e.target.result);
+                  };
+                  reader.readAsText(file);
+                }}
+                // close the dialog after file is uploaded
               />
               <div className="flex justify-end space-x-2 mt-4">
                 <Button variant="outline">Cancel</Button>
-                <Button>Submit</Button>
+                <Button
+                  onClick={() => {
+                    console.log(pastedCsvData);
+                    const [header, ...rows] = pastedCsvData.split("\n");
+                    const [key, value] = header.split(",");
+
+                    // Check if any value in the key or value column is a date
+                    const isDate = (str: string) =>
+                      isNaN(Date.parse(str)) === false && isNaN(Number(str));
+                    const containsDate = rows.some((row: any) => {
+                      const [keyValue, valueValue] = row.split(",");
+                      return isDate(keyValue) || isDate(valueValue);
+                    });
+
+                    const parsedData = rows.map((row: any) => {
+                      let [keyValue, valueValue] = row.split(",");
+                      if (containsDate) {
+                        if (isDate(keyValue))
+                          keyValue = new Date(keyValue).toLocaleDateString(
+                            "en-US",
+                            { year: "numeric", month: "short", day: "numeric" }
+                          );
+                        if (isDate(valueValue))
+                          valueValue = new Date(valueValue).toLocaleDateString(
+                            "en-US",
+                            { year: "numeric", month: "short", day: "numeric" }
+                          );
+                      }
+                      return {
+                        [key]: keyValue,
+                        [value]: isNaN(Number(valueValue))
+                          ? valueValue
+                          : Number(valueValue),
+                      };
+                    });
+                    // print the new formatted data
+                    console.log(parsedData);
+                    setChartData(parsedData);
+                    setXName(key);
+                    setYName(value);
+                    // close the dialog after file is uploaded
+                    setOpenCsv(false);
+                  }}
+                >
+                  Submit
+                </Button>
               </div>
             </DialogContent>
           </Dialog>

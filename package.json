@@ -19,6 +19,7 @@
     "@remixicon/react": "^4.2.0",
     "@tremor/react": "^3.17.2",
     "axios": "^1.7.2",
+    "cubic-spline": "^3.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "html2canvas": "^1.4.1",
