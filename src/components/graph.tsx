@@ -57,12 +57,16 @@ export default function Graph({
 
   return (
     <div
-      className={`${!background ? "border border-gray-300/25" : ""} rounded-lg scale-75 md:scale-100` }
+      className={`${
+        !background ? "border border-gray-300/25" : ""
+      } rounded-lg scale-75 md:scale-100`}
     >
       <div
         className="cc w-full flex items-center justify-center h-fit resize-x overflow-auto"
         style={{
           background: background ? theme.gradient : "transparent",
+          transform:
+            window.innerHeight < 700 ? "translateY(-50px)" : "translateY(0)",
         }}
         ref={chartRef}
       >
@@ -104,35 +108,34 @@ export default function Graph({
                 {yName}
               </div>
               <div className="flex flex-col w-full">
-              <AreaChart
-                style={{ width: width + "px"}}
-                className={`h-72 transition-all`}
-                data={finalChartData}
-                index={xName}
-                categories={[yName]}
-                colors={[theme.color]}
-                showGridLines={false}
-                yAxisWidth={35}
-                showAnimation={true}
-                showLegend={false}
-                valueFormatter={(value) => {
-                  if (value > 999) {
-                    return (value / 1000).toFixed(1) + "k";
-                  }
-                  return value.toString();
-                }}
-                maxValue={maxValue}
-                connectNulls={true}
-                curveType="monotone"
-              />
-              <p className="mt-2 w-full flex items-center justify-center mx-auto text-md text-zinc-500">
-              {xName}
-              </p>
+                <AreaChart
+                  style={{ width: width + "px" }}
+                  className={`h-72 transition-all`}
+                  data={finalChartData}
+                  index={xName}
+                  categories={[yName]}
+                  colors={[theme.color]}
+                  showGridLines={false}
+                  yAxisWidth={35}
+                  showAnimation={true}
+                  showLegend={false}
+                  valueFormatter={(value) => {
+                    if (value > 999) {
+                      return (value / 1000).toFixed(1) + "k";
+                    }
+                    return value.toString();
+                  }}
+                  maxValue={maxValue}
+                  connectNulls={true}
+                  curveType="monotone"
+                />
+                <p className="mt-2 w-full flex items-center justify-center mx-auto text-md text-zinc-500">
+                  {xName}
+                </p>
               </div>
             </div>
-            
-            </div>
-            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
