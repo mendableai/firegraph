@@ -101,7 +101,7 @@ export default function Graph({
             </div>
             <div className="pt-6 text-xs ">
               <AreaChart
-              style={{ width: width + "px"}}
+                style={{ width: width + "px"}}
                 className={`h-72 transition-all`}
                 data={finalChartData}
                 index={xName}
@@ -109,6 +109,7 @@ export default function Graph({
                 colors={[theme.color]}
                 showGridLines={false}
                 yAxisWidth={35}
+                showAnimation={true}
                 showLegend={false}
                 yAxisLabel={yName}
                 xAxisLabel={xName}
