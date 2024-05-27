@@ -123,7 +123,7 @@ export default function Graph({
                       categories={[yName]}
                       colors={[theme.color]}
                       showGridLines={false}
-                      yAxisWidth={35}
+                      yAxisWidth={43}
                       showAnimation={true}
                       showLegend={false}
                       valueFormatter={(value) => {
