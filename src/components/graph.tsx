@@ -57,7 +57,7 @@ export default function Graph({
 
   return (
     <div
-      className={`${!background ? "border border-gray-300/25" : ""} rounded-lg`}
+      className={`${!background ? "border border-gray-300/25" : ""} rounded-lg scale-75 md:scale-100` }
     >
       <div
         className="cc flex items-center justify-center h-fit resize-x overflow-auto"
@@ -99,7 +99,7 @@ export default function Graph({
                 </div>
               </div>
             </div>
-            <div className="pt-6 text-xs">
+            <div className="pt-6 text-xs ">
               <AreaChart
               style={{ width: width + "px"}}
                 className={`h-72 transition-all`}

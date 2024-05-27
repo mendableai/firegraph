@@ -7,6 +7,7 @@ import Graph from "../components/graph";
 import { useRef, useState } from "react";
 import { Theme, allThemes } from "@/lib/theme";
 import html2canvas from "html2canvas";
+import DataInput from "@/components/data-input";
 
 /**
  * The issue in the original code is that the `allThemes["firecrawl"]` object does not match the expected `Theme` type.
@@ -76,7 +77,7 @@ export default function Home() {
   const chartRef = useRef<HTMLDivElement>(null);
   const [githubLink, setGithubLink] = useState<string>("");
   const [csvData, setCsvData] = useState<string>("");
-  const [graphTitle, setGraphTitle] = useState<string>("Your awesome graph 🔥");
+  const [graphTitle, setGraphTitle] = useState<string>("Your fire graph 🔥");
   const [maxValue, setMaxValue] = useState(0);
   const [finalChartData, setFinalChartData] = useState(chartData);
 
@@ -126,7 +127,21 @@ export default function Home() {
         background: `linear-gradient(to bottom right, rgba(255, 255, 255, 0.75) 58%, ${theme.startColor}, ${theme.endColor} )`,
       }}
     >
-      <main className="relative flex h-[95vh] flex-col items-center justify-center bg-transparent bg-opacity-80">
+      <main className="relative flex h-[95vh] flex-col items-center justify-start bg-transparent bg-opacity-80">
+        <DataInput
+          setChartData={setChartData}
+          setXName={setXName}
+          setYName={setYName}
+          setGraphTitle={setGraphTitle}
+          repoUrl={repoUrl}
+          setRepoUrl={setRepoUrl}
+          open={open}
+          setOpen={setOpen}
+          openCsv={openCsv}
+          setOpenCsv={setOpenCsv}
+          pastedCsvData={pastedCsvData}
+          setPastedCsvData={setPastedCsvData}
+        />
         <Graph
           padding={padding}
           width={width}
