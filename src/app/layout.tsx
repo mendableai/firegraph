@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const meta = {
   title: 'Firegraph',
-  description: 'Create beautiful graphs. From GitHub star charts to custom data. Made by Firecrawl team.',
+  description: 'Create beautiful graphs. From GitHub star charts to custom data. Made by Firecrawl.',
   cardImage: '/og.png',
   robots: 'follow, index',
   favicon: '/favicon.ico',
