@@ -3,7 +3,7 @@
 
 import Menu from "../components/menu";
 import Graph from "../components/graph";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Theme, allThemes } from "@/lib/theme";
 import html2canvas from "html2canvas";
 import DataInput from "@/components/data-input";
@@ -62,7 +62,7 @@ export default function MainComponent() {
   const [chartData, setChartData] = useState(initialData);
   const [xName, setXName] = useState("Date");
   const [yName, setYName] = useState("Stars");
-  const [padding, setPadding] = useState(window.innerWidth < 450 ? 16 : 32);
+  const [padding, setPadding] = useState(32);
   const [width, setWidth] = useState("400");
   const [theme, setTheme] = useState<Theme>(
     () => allThemes["firecrawl"] as Theme
@@ -81,6 +81,12 @@ export default function MainComponent() {
   const [graphTitle, setGraphTitle] = useState<string>("Firegraph🔥");
   const [maxValue, setMaxValue] = useState(0);
   const [finalChartData, setFinalChartData] = useState(chartData);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPadding(window.innerWidth < 450 ? 16 : 32);
+    }
+  }, []);
 
   const handleExport = async (copyAsImage: boolean = false) => {
     if (chartRef.current) {
@@ -129,7 +135,7 @@ export default function MainComponent() {
       }}
     >
       <main className="relative flex h-[95vh] flex-col items-center justify-start bg-transparent bg-opacity-80">
-      {/* <Button
+        {/* <Button
           onClick={() => {
             window.open('https://github.com/mendableai/firecrawl', '_blank');
           }}
