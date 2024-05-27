@@ -104,7 +104,7 @@ export default function Graph({
                 yAxisLabel={yName}
                 xAxisLabel={xName}
                 valueFormatter={(value) => {
-                  if (value > 99) {
+                  if (value > 999) {
                     return (value / 1000).toFixed(1) + "k";
                   }
                   return value.toString();

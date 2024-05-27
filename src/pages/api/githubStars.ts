@@ -167,7 +167,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     repo = repo.replace('github.com/', '');
   }
   console.log(repo, token);
-  const maxRequestAmount = 5;
+  const maxRequestAmount = 20;
 
   try {
     const starRecords = await getRepoStarRecords(repo, token, maxRequestAmount);
