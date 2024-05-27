@@ -9,7 +9,7 @@ interface StarRecord {
 }
 
 interface StarRecordResponse {
-  date: string;
+  Date: string;
   Stars: number;
 }
 
@@ -135,8 +135,17 @@ async function getRepoStarRecords(repo: string, token: string, maxRequestAmount:
     currentDate.setDate(startDate.getDate() + i);
     let interpolatedStars = spline.at(currentDate.getTime());
     interpolatedStars = Math.max(0, Math.min(interpolatedStars, maxStars)); // Ensure value is between 0 and maxStars
+
+    // Ensure interpolated value is not lower than the last known value by more than 10
+    if (i > 1) {
+      const lastKnownValue = interpolatedRecords[i - 2].Stars;
+      if (interpolatedStars < lastKnownValue - 10) {
+        interpolatedStars = lastKnownValue;
+      }
+    }
+
     interpolatedRecords.push({
-      date: utils.getFormattedDate(currentDate.toISOString()),
+      Date: utils.getFormattedDate(currentDate.toISOString()),
       Stars: Math.round(interpolatedStars),
     });
   }
@@ -158,10 +167,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     repo = repo.replace('github.com/', '');
   }
   console.log(repo, token);
-  const maxRequestAmount = 15;
+  const maxRequestAmount = 5;
 
   try {
     const starRecords = await getRepoStarRecords(repo, token, maxRequestAmount);
+    console.log(starRecords);
     res.status(200).json(starRecords);
   } catch (error: any) {
     res.status(500).json({ error: error.message });

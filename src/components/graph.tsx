@@ -14,6 +14,8 @@ export default function Graph({
   background,
   darkMode,
   chartRef,
+  graphTitle,
+  setGraphTitle,
 }: {
   padding: number;
   chartData: any;
@@ -23,6 +25,8 @@ export default function Graph({
   background: boolean;
   darkMode: boolean;
   chartRef: React.RefObject<HTMLDivElement>;
+  graphTitle: string;
+  setGraphTitle: (graphTitle: string) => void;
 }) {
   const [maxValue, setMaxValue] = useState(0);
   const [finalChartData, setFinalChartData] = useState(chartData);
@@ -37,10 +41,11 @@ export default function Graph({
 
       setFinalChartData(chartData);
     } else {
-      setMaxValue(1000);
+      const maxYValue = Math.max(...chartData.map((data: any) => data[yName]));
+      setMaxValue(maxYValue);
       setFinalChartData(chartData);
     }
-  }, [chartData]);
+  }, [chartData, yName]);
 
   return (
     <div
@@ -82,7 +87,7 @@ export default function Graph({
                   contentEditable
                   className="focus:outline-none text-sm text-zinc-500 focus:ring-2 mx-2 rounded-md focus:ring-zinc-300"
                 >
-                  Your awesome graph
+                  {graphTitle}
                 </div>
               </div>
             </div>
@@ -90,7 +95,7 @@ export default function Graph({
               <AreaChart
                 className="h-72 w-96"
                 data={finalChartData}
-                index="date"
+                index={xName}
                 categories={[yName]}
                 colors={[theme.color]}
                 showGridLines={false}

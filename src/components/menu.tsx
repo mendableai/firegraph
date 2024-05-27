@@ -58,6 +58,8 @@ export default function Menu({
   setDarkMode,
   handleExportCopyAsImage,
   handleExport,
+  graphTitle,
+  setGraphTitle,
 }: {
   padding: number;
   setPadding: (padding: number) => void;
@@ -72,10 +74,13 @@ export default function Menu({
   setDarkMode: (darkMode: boolean) => void;
   handleExportCopyAsImage: () => void;
   handleExport: () => void;
+  graphTitle: string;
+  setGraphTitle: (graphTitle: string) => void;
 }) {
   const [pastedCsvData, setPastedCsvData] = useState("");
   const [repoUrl, setRepoUrl] = useState("");
   const [open, setOpen] = useState(false);
+  const [openCsv, setOpenCsv] = useState(false);
   const generateEmbedCode = () => {
     const embedCode = `
       <iframe
@@ -135,6 +140,7 @@ export default function Menu({
                         setXName("Date");
                         setYName("Stars");
                         setChartData(data);
+                        setGraphTitle(`${repoUrl} Stars`);
                         setOpen(false);
                       } catch (error) {
                         console.error(
@@ -153,7 +159,7 @@ export default function Menu({
               </div>
             </DialogContent>
           </Dialog>
-          <Dialog>
+          <Dialog open={openCsv} onOpenChange={setOpenCsv}>
             <DialogTrigger asChild>
               <Button
                 variant={"outline"}
@@ -167,13 +173,18 @@ export default function Menu({
               <DialogHeader>
                 <DialogTitle>Paste CSV Data</DialogTitle>
                 <DialogDescription>
-                  Please paste your CSV data or upload a CSV file.
+                  Please paste your CSV data or upload a CSV file. <br />
+                  <strong>Make sure you have only 2 columns (X, Y)</strong>
                 </DialogDescription>
               </DialogHeader>
               <Textarea
                 className="w-full p-2 border border-gray-300 rounded"
                 rows={5}
-                placeholder="Paste your CSV data here..."
+                placeholder={`Gear, Speed
+1,0
+2,480
+3,750..
+`}
                 value={pastedCsvData}
                 onChange={(e) => setPastedCsvData(e.target.value)}
               ></Textarea>
@@ -181,21 +192,60 @@ export default function Menu({
                 type="file"
                 accept=".csv"
                 className="w-full p-2 border border-gray-300 rounded mt-2"
+                onChange={(e) => {
+                  const file = e.target.files![0];
+                  const reader = new FileReader();
+                  reader.onload = (e: any) => {
+                    setPastedCsvData(e.target.result);
+                  };
+                  reader.readAsText(file);
+                }}
+                // close the dialog after file is uploaded
               />
               <div className="flex justify-end space-x-2 mt-4">
                 <Button variant="outline">Cancel</Button>
                 <Button
                   onClick={() => {
+                    console.log(pastedCsvData);
                     const [header, ...rows] = pastedCsvData.split("\n");
-                    const [dateKey, valueKey] = header.split(",");
-                    const parsedData = rows.map((row: any) => {
-                      const [date, value] = row.split(",");
-                      return { [dateKey]: date, [valueKey]: Number(value) };
+                    const [key, value] = header.split(",");
+
+                    // Check if any value in the key or value column is a date
+                    const isDate = (str: string) =>
+                      isNaN(Date.parse(str)) === false && isNaN(Number(str));
+                    const containsDate = rows.some((row: any) => {
+                      const [keyValue, valueValue] = row.split(",");
+                      return isDate(keyValue) || isDate(valueValue);
                     });
 
+                    const parsedData = rows.map((row: any) => {
+                      let [keyValue, valueValue] = row.split(",");
+                      if (containsDate) {
+                        if (isDate(keyValue))
+                          keyValue = new Date(keyValue).toLocaleDateString(
+                            "en-US",
+                            { year: "numeric", month: "short", day: "numeric" }
+                          );
+                        if (isDate(valueValue))
+                          valueValue = new Date(valueValue).toLocaleDateString(
+                            "en-US",
+                            { year: "numeric", month: "short", day: "numeric" }
+                          );
+                      }
+                      return {
+                        [key]: keyValue,
+                        [value]: isNaN(Number(valueValue))
+                          ? valueValue
+                          : Number(valueValue),
+                      };
+                    });
+                    // print the new formatted data
+                    console.log(parsedData);
                     setChartData(parsedData);
-                    setXName(dateKey);
-                    setYName(valueKey);
+                    setXName(key);
+                    setYName(value);
+                    // close the dialog after file is uploaded
+                    setOpenCsv(false);
                   }}
                 >
                   Submit
