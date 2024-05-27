@@ -8,6 +8,7 @@ import html2canvas from "html2canvas";
 export default function Graph({
   padding,
   chartData,
+  width,
   xName,
   yName,
   theme,
@@ -23,6 +24,7 @@ export default function Graph({
 }: {
   padding: number;
   chartData: any;
+  width: string;
   xName: string;
   yName: string;
   theme: Theme;
@@ -99,7 +101,8 @@ export default function Graph({
             </div>
             <div className="pt-6 text-xs">
               <AreaChart
-                className="h-72 w-96"
+              style={{ width: width + "px"}}
+                className={`h-72 transition-all`}
                 data={finalChartData}
                 index={xName}
                 categories={[yName]}

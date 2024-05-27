@@ -47,6 +47,8 @@ import { useState } from "react";
 export default function Menu({
   padding,
   setPadding,
+  width,
+  setWidth,
   setChartData,
   setXName,
   setYName,
@@ -71,6 +73,8 @@ export default function Menu({
 }: {
   padding: number;
   setPadding: (padding: number) => void;
+  width: string;
+  setWidth: (width: string) => void;
   setChartData: (data: any) => void;
   setXName: (xName: string) => void;
   setYName: (yName: string) => void;
@@ -334,6 +338,24 @@ export default function Menu({
               <SelectItem value="32">32</SelectItem>
               <SelectItem value="64">64</SelectItem>
               <SelectItem value="128">128</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex flex-col items-start justify-start">
+          <span className="text-zinc-700 text-sm">Width</span>
+          <Select
+            value={width.toString()}
+            onValueChange={(value) => setWidth(value)}
+          >
+            <SelectTrigger className="w-[100px]">
+              <SelectValue placeholder="400px" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="300">300px</SelectItem>
+              <SelectItem value="350">350px</SelectItem>
+              <SelectItem value="400">400px</SelectItem>
+              <SelectItem value="600">500px</SelectItem>
+              <SelectItem value="800">700px</SelectItem>
             </SelectContent>
           </Select>
         </div>

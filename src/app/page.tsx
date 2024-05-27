@@ -61,6 +61,7 @@ export default function Home() {
   const [xName, setXName] = useState("Date");
   const [yName, setYName] = useState("Stars");
   const [padding, setPadding] = useState(32);
+  const [width, setWidth] = useState("400");
   const [theme, setTheme] = useState<Theme>(
     () => allThemes["firecrawl"] as Theme
   );
@@ -128,6 +129,7 @@ export default function Home() {
       <main className="relative flex h-[95vh] flex-col items-center justify-center bg-transparent bg-opacity-80">
         <Graph
           padding={padding}
+          width={width}
           theme={theme}
           background={background}
           darkMode={darkMode}
@@ -146,6 +148,8 @@ export default function Home() {
         <Menu
           padding={padding}
           setPadding={setPadding}
+          width={width}
+          setWidth={setWidth}
           theme={theme}
           setTheme={setTheme}
           handleExport={handleExport}
