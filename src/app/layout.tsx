@@ -12,7 +12,7 @@ const meta = {
   cardImage: '/og.png',
   robots: 'follow, index',
   favicon: '/favicon.ico',
-  url: 'https://firegraph.vercel.app/'
+  url: 'https://www.firegraph.so/'
 };
 
 export async function generateMetadata(): Promise<Metadata> {
