@@ -35,7 +35,7 @@ export default function DataInput({
     setPastedCsvData,
 }: DataInputProps) {
   return (
-    <div className="mt-8 md:mt-12 mb-0 md:mb-4 flex flex-col items-start rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[18px]">
+    <div className="mt-8 md:mt-8 mb-0 md:mb-8 xl:mb-12 xl:mt-12 flex flex-col items-start rounded-lg bg-white border border-zinc-500/25 shadow-xl px-4 py-[18px]">
         {/* <p className="text-zinc-700 mx-auto text-sm">Visualize</p> */}
         <div className="mt-1 flex flex-row items-center rounded-lg gap-4">
           <Dialog open={open} onOpenChange={setOpen}>
