@@ -120,8 +120,8 @@ async function getRepoStarRecords(repo: string, token: string, maxRequestAmount:
   const sortedDates = Array.from(starRecordsMap.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
   const dates = sortedDates.map(date => new Date(date).getTime());
   const stars = sortedDates.map(date => starRecordsMap.get(date)!);
-  console.log(sortedDates);
-  console.log(stars);
+  //console.log(sortedDates);
+  //console.log(stars);
 
   const nonInterpolatedRecords: { Date: string, Stars: number | null }[] = [];
   const startDate1 = new Date(sortedDates[0]);
@@ -153,7 +153,7 @@ async function getRepoStarRecords(repo: string, token: string, maxRequestAmount:
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { repo: rawRepo, token } = req.query as { repo: string, token: string };
+  const { repo: rawRepo } = req.query as { repo: string };
 
   let repo = rawRepo;
   if (repo.startsWith('https://github.com/')) {
@@ -167,10 +167,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
  
   const maxRequestAmount = 20;
+  //random number between 1 and 4
+  const randomNumber = Math.floor(Math.random() * 4) + 1;
+  const token = process.env[`G${randomNumber}`];
+  //console.log(`Select G${randomNumber}`);
+  //console.log(token);
 
   try {
-    const starRecords = await getRepoStarRecords(repo, token, maxRequestAmount);
-    console.log(starRecords);
+    const starRecords = await getRepoStarRecords(repo, token!, maxRequestAmount);
+    //console.log(starRecords);
     res.status(200).json(starRecords);
   } catch (error: any) {
     res.status(500).json({ error: error.message });

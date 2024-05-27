@@ -84,14 +84,12 @@ export default function DataInput({
                   <Button variant="outline">Cancel</Button>
                   <Button
                     onClick={async () => {
-                      const token = process.env.GITHUB_TOKEN;
-
-                      if (token && repoUrl) {
+                      if (repoUrl) {
                         try {
                           const response = await fetch(
                             `/api/githubStars?repo=${encodeURIComponent(
                               repoUrl
-                            )}&token=${encodeURIComponent(token)}`
+                            )}`
                           );
                           if (!response.ok) {
                             throw new Error(`Error: ${response.statusText}`);
