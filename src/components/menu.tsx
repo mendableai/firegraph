@@ -60,6 +60,14 @@ export default function Menu({
   handleExport,
   graphTitle,
   setGraphTitle,
+  pastedCsvData,
+  setPastedCsvData,
+  repoUrl,
+  setRepoUrl,
+  open,
+  setOpen,
+  openCsv,
+  setOpenCsv,
 }: {
   padding: number;
   setPadding: (padding: number) => void;
@@ -76,11 +84,15 @@ export default function Menu({
   handleExport: () => void;
   graphTitle: string;
   setGraphTitle: (graphTitle: string) => void;
+  pastedCsvData: string;
+  setPastedCsvData: (pastedCsvData: string) => void;
+  repoUrl: string;
+  setRepoUrl: (repoUrl: string) => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  openCsv: boolean;
+  setOpenCsv: (openCsv: boolean) => void;
 }) {
-  const [pastedCsvData, setPastedCsvData] = useState("");
-  const [repoUrl, setRepoUrl] = useState("");
-  const [open, setOpen] = useState(false);
-  const [openCsv, setOpenCsv] = useState(false);
   const generateEmbedCode = () => {
     const embedCode = `
       <iframe
@@ -244,6 +256,7 @@ export default function Menu({
                     setChartData(parsedData);
                     setXName(key);
                     setYName(value);
+                    setGraphTitle(`Your awesome graph 🔥`);
                     // close the dialog after file is uploaded
                     setOpenCsv(false);
                   }}

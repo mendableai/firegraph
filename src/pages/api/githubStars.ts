@@ -10,7 +10,7 @@ interface StarRecord {
 
 interface StarRecordResponse {
   Date: string;
-  Stars: number;
+  Stars: number | null;
 }
 
 const utils = {
@@ -120,37 +120,36 @@ async function getRepoStarRecords(repo: string, token: string, maxRequestAmount:
   const sortedDates = Array.from(starRecordsMap.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
   const dates = sortedDates.map(date => new Date(date).getTime());
   const stars = sortedDates.map(date => starRecordsMap.get(date)!);
+  console.log(sortedDates);
+  console.log(stars);
 
-  const spline = new Spline(dates, stars);
+  const nonInterpolatedRecords: { Date: string, Stars: number | null }[] = [];
+  const startDate1 = new Date(sortedDates[0]);
+  const endDate1 = new Date(sortedDates[sortedDates.length - 1]);
+  const daysBetween1 = (endDate1.getTime() - startDate1.getTime()) / (1000 * 60 * 60 * 24);
 
-  const interpolatedRecords: StarRecordResponse[] = [];
-  const startDate = new Date(sortedDates[0]);
-  const endDate = new Date(sortedDates[sortedDates.length - 1]);
-  const daysBetween = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+  let currentIndex = 0;
+  for (let i = 0; i <= daysBetween1; i++) {
+    const currentDate = new Date(startDate1);
+    currentDate.setDate(startDate1.getDate() + i);
+    const formattedDate = utils.getFormattedDate(currentDate.toISOString());
 
-  const maxStars = Math.max(...stars);
-
-  for (let i = 0; i <= daysBetween; i++) {
-    const currentDate = new Date(startDate);
-    currentDate.setDate(startDate.getDate() + i);
-    let interpolatedStars = spline.at(currentDate.getTime());
-    interpolatedStars = Math.max(0, Math.min(interpolatedStars, maxStars)); // Ensure value is between 0 and maxStars
-
-    // Ensure interpolated value is not lower than the last known value by more than 10
-    if (i > 1) {
-      const lastKnownValue = interpolatedRecords[i - 2].Stars;
-      if (interpolatedStars < lastKnownValue - 10) {
-        interpolatedStars = lastKnownValue;
-      }
+    if (currentIndex < sortedDates.length && formattedDate === utils.getFormattedDate(sortedDates[currentIndex])) {
+      nonInterpolatedRecords.push({
+        Date: formattedDate,
+        Stars: stars[currentIndex],
+      });
+      currentIndex++;
+    } else {
+      nonInterpolatedRecords.push({
+        Date: formattedDate,
+        Stars: null,
+      });
     }
-
-    interpolatedRecords.push({
-      Date: utils.getFormattedDate(currentDate.toISOString()),
-      Stars: Math.round(interpolatedStars),
-    });
   }
 
-  return interpolatedRecords;
+  return nonInterpolatedRecords;
+
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -166,7 +165,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else if (repo.startsWith('github.com/')) {
     repo = repo.replace('github.com/', '');
   }
-  console.log(repo, token);
+ 
   const maxRequestAmount = 20;
 
   try {

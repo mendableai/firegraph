@@ -68,13 +68,16 @@ export default function Home() {
   const [background, setBackground] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const [copyAsImage, setCopyAsImage] = useState(false);
-
+  const [pastedCsvData, setPastedCsvData] = useState("");
+  const [repoUrl, setRepoUrl] = useState("");
+  const [open, setOpen] = useState(false);
+  const [openCsv, setOpenCsv] = useState(false);
   const chartRef = useRef<HTMLDivElement>(null);
-
   const [githubLink, setGithubLink] = useState<string>("");
   const [csvData, setCsvData] = useState<string>("");
-
   const [graphTitle, setGraphTitle] = useState<string>("Your awesome graph 🔥");
+  const [maxValue, setMaxValue] = useState(0);
+  const [finalChartData, setFinalChartData] = useState(chartData);
 
   const handleExport = async (copyAsImage: boolean = false) => {
     if (chartRef.current) {
@@ -134,6 +137,10 @@ export default function Home() {
           yName={yName}
           graphTitle={graphTitle}
           setGraphTitle={setGraphTitle}
+          maxValue={maxValue}
+          setMaxValue={setMaxValue}
+          finalChartData={finalChartData}
+          setFinalChartData={setFinalChartData}
         />
 
         <Menu
@@ -152,6 +159,14 @@ export default function Home() {
           setYName={setYName}
           setGraphTitle={setGraphTitle}
           graphTitle={graphTitle}
+          pastedCsvData={pastedCsvData}
+          setPastedCsvData={setPastedCsvData}
+          repoUrl={repoUrl}
+          setRepoUrl={setRepoUrl}
+          open={open}
+          setOpen={setOpen}
+          openCsv={openCsv}
+          setOpenCsv={setOpenCsv}
         />
         <div className="fixed bottom-0 left-0 right-0 p-4 text-white  text-center font-light">
           Made by{" "}

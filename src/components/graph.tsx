@@ -16,6 +16,10 @@ export default function Graph({
   chartRef,
   graphTitle,
   setGraphTitle,
+  maxValue,
+  setMaxValue,
+  finalChartData,
+  setFinalChartData,
 }: {
   padding: number;
   chartData: any;
@@ -27,9 +31,11 @@ export default function Graph({
   chartRef: React.RefObject<HTMLDivElement>;
   graphTitle: string;
   setGraphTitle: (graphTitle: string) => void;
+  maxValue: number;
+  setMaxValue: (maxValue: number) => void;
+  finalChartData: any;
+  setFinalChartData: (finalChartData: any) => void;
 }) {
-  const [maxValue, setMaxValue] = useState(0);
-  const [finalChartData, setFinalChartData] = useState(chartData);
   useEffect(() => {
     if (
       chartData.length > 0 &&
@@ -111,7 +117,7 @@ export default function Graph({
                 }}
                 maxValue={maxValue}
                 connectNulls={true}
-                curveType="natural"
+                curveType="monotone"
               />
             </div>
           </div>
