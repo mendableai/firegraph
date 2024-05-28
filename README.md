@@ -9,4 +9,4 @@ Creating beautiful and interactive graphs with Firegraph. Start with by plotting
 - **Real-time Data**: Integrate real-time data to keep your graphs up-to-date.
 - **Easy to Use**: User-friendly interface that makes graph creation simple and quick.
 
-![Firegraph](public/firegraph-hero.png)
+![Firegraph](public/hero.png)
