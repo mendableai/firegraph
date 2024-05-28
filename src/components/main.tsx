@@ -183,7 +183,16 @@ export default function MainComponent() {
               className="text-black md:text-white hover:text-orange-400"
               style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.15)" }}
             >
-              Made by Firecrawl 🔥
+              Made by Firecrawl 🔥{" "}
+            </a>
+            |{" "}
+            <a
+              href="https://ray.so/"
+              target="_blank"
+              className="text-black md:text-white hover:text-orange-400"
+            >
+              {" "}
+              Inspired by Ray.so
             </a>
           </div>
         )}
