@@ -220,7 +220,7 @@ export default function Menu({
                   <Download size={16} className="mr-1" />
                   Export
                 </Button>
-                <DropdownMenu>
+                {/* <DropdownMenu>
                   <DropdownMenuTrigger
                     style={{ backgroundColor: `${theme.startColor}40` }}
                     className="h-[40px] border-0 w-[32px] p-0 rounded"
@@ -238,14 +238,8 @@ export default function Menu({
                         Embed
                       </div>
                     </DropdownMenuItem>
-                    {/* <DropdownMenuItem onClick={handleExportCopyAsImage}>
-                <div className="flex items-center justify-start gap-2">
-                  <Image size={16} className="-ml-4 mr-1" />
-                  Copy PNG
-                </div>
-              </DropdownMenuItem> */}
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
               </div>
             </div>
           </div>
