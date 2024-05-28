@@ -1,4 +1,3 @@
-// pages/index.tsx
 "use client";
 
 import Menu from "../components/menu";
@@ -9,11 +8,6 @@ import html2canvas from "html2canvas";
 import DataInput from "@/components/data-input";
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
-
-/**
- * The issue in the original code is that the `allThemes["firecrawl"]` object does not match the expected `Theme` type.
- * To fix this, we need to ensure that the `allThemes["firecrawl"]` object conforms to the `Theme` type.
- */
 
 export default function MainComponent() {
   const initialData = [
@@ -70,14 +64,11 @@ export default function MainComponent() {
 
   const [background, setBackground] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
-  const [copyAsImage, setCopyAsImage] = useState(false);
   const [pastedCsvData, setPastedCsvData] = useState("");
   const [repoUrl, setRepoUrl] = useState("");
   const [open, setOpen] = useState(false);
   const [openCsv, setOpenCsv] = useState(false);
   const chartRef = useRef<HTMLDivElement>(null);
-  const [githubLink, setGithubLink] = useState<string>("");
-  const [csvData, setCsvData] = useState<string>("");
   const [graphTitle, setGraphTitle] = useState<string>("Firegraph🔥");
   const [maxValue, setMaxValue] = useState(0);
   const [finalChartData, setFinalChartData] = useState(chartData);
@@ -135,17 +126,6 @@ export default function MainComponent() {
       }}
     >
       <main className="relative flex h-[95vh] flex-col items-center justify-start bg-transparent bg-opacity-80">
-        {/* <Button
-          onClick={() => {
-            window.open('https://github.com/mendableai/firecrawl', '_blank');
-          }}
-          variant="outline"
-          size="icon"
-          className="px-3 w-22 gap-2"
-        >
-          <Github className="h-4 w-4" />{' '}
-          {githubStars ? `${(githubStars / 1000).toFixed(1)}k` : 'GitHub'}
-        </Button> */}
         <DataInput
           setChartData={setChartData}
           setXName={setXName}
@@ -190,20 +170,6 @@ export default function MainComponent() {
           setBackground={setBackground}
           darkMode={darkMode}
           setDarkMode={setDarkMode}
-          handleExportCopyAsImage={() => handleExport(true)}
-          setChartData={setChartData}
-          setXName={setXName}
-          setYName={setYName}
-          setGraphTitle={setGraphTitle}
-          graphTitle={graphTitle}
-          pastedCsvData={pastedCsvData}
-          setPastedCsvData={setPastedCsvData}
-          repoUrl={repoUrl}
-          setRepoUrl={setRepoUrl}
-          open={open}
-          setOpen={setOpen}
-          openCsv={openCsv}
-          setOpenCsv={setOpenCsv}
         />
         {typeof window !== "undefined" && (
           <div

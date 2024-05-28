@@ -10,36 +10,15 @@ import { Theme, allThemes } from "@/lib/theme";
 import { Button } from "./ui/button";
 import { Switch } from "./ui/switch";
 import {
-  ArrowUp,
-  ArrowUp01,
   ChevronUp,
-  ClipboardPasteIcon,
   Code,
-  Copy,
   Download,
-  Github,
-  Image,
-  MoveUpIcon,
-  Plus,
 } from "lucide-react";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "./ui/dialog";
-import { SelectIcon } from "@radix-ui/react-select";
 import { toast } from "sonner";
-import { Textarea } from "./ui/textarea";
-import { Input } from "./ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { useState } from "react";
@@ -49,53 +28,25 @@ export default function Menu({
   setPadding,
   width,
   setWidth,
-  setChartData,
-  setXName,
-  setYName,
   theme,
   setTheme,
   background,
   setBackground,
   darkMode,
   setDarkMode,
-  handleExportCopyAsImage,
   handleExport,
-  graphTitle,
-  setGraphTitle,
-  pastedCsvData,
-  setPastedCsvData,
-  repoUrl,
-  setRepoUrl,
-  open,
-  setOpen,
-  openCsv,
-  setOpenCsv,
 }: {
   padding: number;
   setPadding: (padding: number) => void;
   width: string;
   setWidth: (width: string) => void;
-  setChartData: (data: any) => void;
-  setXName: (xName: string) => void;
-  setYName: (yName: string) => void;
   theme: Theme;
   setTheme: (theme: Theme) => void;
   background: boolean;
   setBackground: (background: boolean) => void;
   darkMode: boolean;
   setDarkMode: (darkMode: boolean) => void;
-  handleExportCopyAsImage: () => void;
   handleExport: () => void;
-  graphTitle: string;
-  setGraphTitle: (graphTitle: string) => void;
-  pastedCsvData: string;
-  setPastedCsvData: (pastedCsvData: string) => void;
-  repoUrl: string;
-  setRepoUrl: (repoUrl: string) => void;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  openCsv: boolean;
-  setOpenCsv: (openCsv: boolean) => void;
 }) {
   const [isClient, setIsClient] = useState(false);
 

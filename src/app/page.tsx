@@ -2,12 +2,7 @@
 import MainComponent from "@/components/main";
 import { useGithubStars } from "./hooks/useGithubStars";
 import GithubButton from "@/components/github-button";
-import { useEffect, useState } from "react";
 
-/**
- * The issue in the original code is that the `allThemes["firecrawl"]` object does not match the expected `Theme` type.
- * To fix this, we need to ensure that the `allThemes["firecrawl"]` object conforms to the `Theme` type.
- */
 
 export default async function Home() {
   const githubStars = await useGithubStars();
