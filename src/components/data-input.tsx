@@ -81,7 +81,9 @@ export default function DataInput({
                   onChange={(e) => setRepoUrl(e.target.value)}
                 />
                 <div className="flex justify-end space-x-2 mt-4">
-                  <Button variant="outline">Cancel</Button>
+                  <Button variant="outline" onClick={() => setOpen(false)}>
+                    Cancel
+                  </Button>
                   <Button
                     onClick={async () => {
                       if (repoUrl) {
@@ -162,7 +164,9 @@ export default function DataInput({
                   // close the dialog after file is uploaded
                 />
                 <div className="flex justify-end space-x-2 mt-4">
-                  <Button variant="outline">Cancel</Button>
+                  <Button variant="outline" onClick={() => setOpenCsv(false)}>
+                    Cancel
+                  </Button>
                   <Button
                     onClick={() => {
                       console.log(pastedCsvData);
